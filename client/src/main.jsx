@@ -2,8 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import { Provider } from "@reduxjs/toolkit"
-import { store } from 'react-redux'
+import { Provider } from "react-redux"
+import { store } from './store.js'
 import { login } from './authSlice.js'
 
 const authData = JSON.parse(localStorage.getItem('auth'))

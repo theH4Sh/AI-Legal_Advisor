@@ -54,12 +54,12 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-slate-50 shadow-2xl rounded-2xl max-w-sm w-full md:w-96 p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800">Welcome Back</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800">Welcome</h2>
         <p className="text-center text-gray-500">Login to your account</p>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="identifier" className="block text-sm font-medium text-gray-700">
-              Username or Email
+              Username
             </label>
             <input
               id="identifier"

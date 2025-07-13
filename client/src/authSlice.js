@@ -13,7 +13,7 @@ const authSlice = createSlice({
         login: (state, action) => {
             state.accessToken = action.payload.access
             state.refreshToken = action.payload.refresh
-            state.isAuthenticated = action.isAuthenticated
+            state.isAuthenticated = true
         },
         logout: state => {
             state.accessToken = null

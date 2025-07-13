@@ -8,7 +8,7 @@ import { login } from './authSlice.js'
 
 const authData = JSON.parse(localStorage.getItem('auth'))
 
-if (authData && authData.username && authData.accessToken && authData.refreshToken && authData.isAuthenticated) {
+if (authData && authData.access && authData.refresh && authData.isAuthenticated) {
   console.log("localStorage to Redux: ", authData)
   store.dispatch(login(authData))
 }

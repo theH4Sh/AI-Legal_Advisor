@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import RootLayout from './layout/RootLayout'
 import { Toaster } from 'react-hot-toast'
 import SignUp from './pages/SignUp'
+import Chat from './pages/Chat'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       <Route path='/' element={<RootLayout />}>
         <Route index element={<Login />} />
         <Route path='signup' element={<SignUp />} />
+        <Route path='chat' element={<Chat />} />
       </Route>
     )
   )

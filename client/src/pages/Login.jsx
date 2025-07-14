@@ -48,7 +48,7 @@ export default function Login() {
           refresh: data.refresh,
           isAuthenticated: true
       }))
-      navigate('/')
+      navigate('/chat')
     })
     .catch((err) => {
       console.log("your error: ", err)

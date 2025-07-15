@@ -25,7 +25,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch(import.meta.env.VITE_API + 'auth/jwt/create', {
+    fetch(import.meta.env.VITE_API + 'auth/jwt/create/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(formData)
@@ -33,7 +33,8 @@ export default function Login() {
     .then((res) => {
       if (!res.ok) {
         return res.json().then((data) => {
-          throw new Error(data.message)
+          console.log(data)
+          throw new Error(data.detail)
         })
       }
       return res.json()

@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast'
 export default function useFetch (url) {
 	const token = useSelector(state => state.accessToken)
 
-	const [user, setUser] = useState(null)
+	const [data, setData] = useState(null)
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
 
@@ -24,7 +24,7 @@ export default function useFetch (url) {
 			if (response.ok) {
 				const data = await response.json()
 				console.log(data)
-				setUser(data)
+				setData(data)
 			} else {
 				console.log(response)
 				throw new Error("Failed to load user")
@@ -38,5 +38,5 @@ export default function useFetch (url) {
 	useEffect(() => {
 		fetchData()
 	}, [token])
-	return { user, error, loading }
+	return { data, error, loading }
 }

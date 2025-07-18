@@ -1,7 +1,8 @@
 export default function Chat () {
 	return (
-		<div className="flex flex-col place-items-center min-h-screen">
-			<div className="">
+		<div className="flex flex-col place-items-center min-h-screen overflow-y-auto
+			pt-25 pb-60">
+			<div className="w-full max-w-3xl px-4">
 				{/* Example messages */}
 				{Array(30).fill().map((_, i) => (
 					<div key={i} className="mb-2">
@@ -13,7 +14,7 @@ export default function Chat () {
 				<textarea 
 					rows={3}
 					placeholder="Send a message"
-					className="flex-1 resize-none focus:outline-none w-full h-full overflow-hidden p-4" />
+					className="flex-1 resize-none focus:outline-none w-full h-full overflow-hidden p-3" />
 			</div>
 		</div>
 	)

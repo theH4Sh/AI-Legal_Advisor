@@ -1,7 +1,9 @@
 export default function Navbar ({ user }) {
 
 	return (
-		<div className="flex justify-between items-center border-b border-gray-300 p-3 h-16 w-full">
+		<div className="fixed top-0 left-0 right-0 md:ml-16 bg-white 
+			flex justify-between items-center border-b border-gray-300 
+			p-3 h-16">
 			{/*Sidbar Toggle*/}
 			<button className="md:hidden my-5 cursor-pointer">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">

@@ -16,8 +16,12 @@ def get_chat(request):
 @permission_classes([IsAuthenticated])
 def create_chat(request):
 	chat = Chat.objects.create(user=request.user)
-	serializer = ChatSerializer(chat)
+	content = request.data.get("content")
 
+	user_msg = Message.objects.create(chat=chat, sender="user", content=content)
+	#Fake bot response
+	bot_msg = Message.objects.create(chat=chat, sender="bot", content="Fuck You")
+	serializer = ChatSerializer(chat)
 	return Response(serializer.data, status=201)
 
 @api_view(['GET', 'DELETE'])

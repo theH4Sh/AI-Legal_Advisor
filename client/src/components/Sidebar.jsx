@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export default function Sidebar () {
-	const [isOpen, setIsOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(true)
 	return (
 		<>
 			<div className={`fixed hidden md:block w-16 h-screen bg-gray-400 flex-col justify-center place-items-center`}>

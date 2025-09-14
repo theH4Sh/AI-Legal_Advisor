@@ -2,12 +2,15 @@ import useFetch from '../hooks/useFetch'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import Chat from '../components/Chat'
+import { useState } from 'react'
 
 export default function Home () {
 	const url = import.meta.env.VITE_API + 'auth/users/me/'
 	const { data: user, error, loading } = useFetch(url)
 
 	if (error) return <p>Error...</p>
+
+	const [isOpen, setIsOpen] = useState(false)
 
 	return(
 		<div className="flex">

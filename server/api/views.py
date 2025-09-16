@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .serializers import ChatSerializer, MessageSerializer
 from .models import Chat, Message
 
-#Wrong implementation of get, you have to get chats only for a specific user.
+#Get chats of a user.
 @api_view(['GET'])
 def get_chat(request):
 	chats = Chat.objects.filter(user=request.user)

@@ -1,7 +1,17 @@
 import { useState } from 'react'
+import useFetch from '../hooks/useFetch'
 
 export default function Sidebar () {
 	const [isOpen, setIsOpen] = useState(true)
+
+	const url = import.meta.env.VITE_API + 'chat/'
+
+	const { data, error, loading } = useFetch(url)
+
+	if (error) {
+		console.log(error)
+	}
+
 	return (
 		<>
 			<div className={`fixed hidden md:block w-16 h-screen bg-gray-400 flex-col justify-center place-items-center`}>
@@ -65,6 +75,18 @@ export default function Sidebar () {
 				{/*Chats*/}
 				<div className="flex flex-col text-start my-5 mx-3 text-gray-500 text-sm">
 					<h3>Chats</h3>
+					<ul>
+						{data && data.map(chat => {
+							const firstMessage = chat.messages.length > 0 ? chat.messages[0].content : "null"
+
+							return (
+								<li key={chat.id}>
+									<p>{firstMessage}</p>
+								</li>
+								)
+							}) 
+						}
+					</ul>
 				</div>
 			</div>
 		</>

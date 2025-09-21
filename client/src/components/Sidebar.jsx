@@ -17,7 +17,7 @@ export default function Sidebar () {
 		if (data) {
 			setChats(data)
 		}
-	}, data)
+	}, [data])
 
 	const handleDelete = async (chatId) => {
 		try {

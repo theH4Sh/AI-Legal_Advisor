@@ -18,6 +18,15 @@ export default function Chat ({ chatId }) {
 		<div className="flex flex-col place-items-center min-h-screen overflow-y-auto
 			pt-25 pb-60">
 			<div className="w-full max-w-3xl px-4">
+				{loading && <p className="text-gray-400">Loading...</p>}
+				{messages.length > 0 ? messages.map(msg => (
+					<div className={`flex my-2 ${ msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
+						<div className={`rounded-2xl px-3 py-2 max-w-[70%] ${ msg.sender == 'user' ? 'bg-blue-400 rounded-br-none' : 'bg-slate-200 rounded-bl-none'}`}>
+							{msg.content}
+						</div>
+					</div>
+					)) : (<div>No chats found</div>)
+				}
 				{/*{example}*/}
 			</div>
 			<div className="fixed bottom-0 my-3 w-[450px] md:w-full md:max-w-3xl bg-gray-200 rounded-4xl">

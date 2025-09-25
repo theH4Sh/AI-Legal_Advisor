@@ -20,7 +20,7 @@ export default function Chat ({ chatId }) {
 			<div className="w-full max-w-3xl px-4">
 				{loading && <p className="text-gray-400">Loading...</p>}
 				{messages.length > 0 ? messages.map(msg => (
-					<div className={`flex my-2 ${ msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
+					<div key={msg.id} className={`flex my-2 ${ msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
 						<div className={`rounded-2xl px-3 py-2 max-w-[70%] ${ msg.sender == 'user' ? 'bg-blue-400 rounded-br-none' : 'bg-slate-200 rounded-bl-none'}`}>
 							{msg.content}
 						</div>

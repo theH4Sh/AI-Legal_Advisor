@@ -37,6 +37,6 @@ export default function useFetch (url) {
 
 	useEffect(() => {
 		fetchData()
-	}, [token])
+	}, [token, url])
 	return { data, error, loading }
 }

@@ -8,7 +8,7 @@ export default function Chat ({ chatId }) {
 	useEffect(() => {
 		if (data) {
 			setMessages(data.messages)
-			console.log("data from API: ", messages)
+			console.log("data from API: ", data.messages)
 		}
 	}, [data])
 	if (error) {

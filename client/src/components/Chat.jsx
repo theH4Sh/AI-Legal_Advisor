@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import useFetch from '../hooks/useFetch'
 import useSend from '../hooks/useSend'
+import { toast } from 'react-hot-toast'
 
 export default function Chat ({ chatId }) {
 	const [messages, setMessages] = useState([])
@@ -15,6 +16,7 @@ export default function Chat ({ chatId }) {
 	}, [data])
 	if (error) {
 		console.log("Error in message: " + error)
+		toast.error("Failed to load chat: " + error)
 	}
 
 	const [newPrompt, setNewPrompt] = useState("")
@@ -30,10 +32,16 @@ export default function Chat ({ chatId }) {
 		setMessages(prev => [...prev, formattedNewMsg])
 		setNewPrompt("")
 
-		const res = await sendMessage(newPrompt)
-		if (res) {
-			console.log("response:", res.bot)
-			setMessages(prev => [...prev, res.bot])
+		try {
+			const res = await sendMessage(newPrompt)
+			if (res) {
+				console.log("response:", res.bot)
+				setMessages(prev => [...prev, res.bot])
+			} else {
+				toast.error("Failed to send message")
+			}
+		} catch (err) {
+			toast.error("Something went wrong: " + err)
 		}
 
 		console.log("updated: ", messages)

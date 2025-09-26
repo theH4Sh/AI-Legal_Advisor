@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import useFetch from '../hooks/useFetch'
 import useSend from '../hooks/useSend'
 import { toast } from 'react-hot-toast'
@@ -7,6 +7,7 @@ export default function Chat ({ chatId }) {
 	const [messages, setMessages] = useState([])
 	const url = import.meta.env.VITE_API + `chat/${chatId}/details/`
 	const {data, loading, error} = useFetch(url)
+	const messagesEndRef = useRef(null)
 
 	useEffect(() => {
 		if (data) {
@@ -18,6 +19,10 @@ export default function Chat ({ chatId }) {
 		console.log("Error in message: " + error)
 		toast.error("Failed to load chat: " + error)
 	}
+
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+	}, [messages])
 
 	const [newPrompt, setNewPrompt] = useState("")
 
@@ -60,6 +65,7 @@ export default function Chat ({ chatId }) {
 					</div>
 					)) : (<div>No chats found</div>)
 				}
+				<div ref={messagesEndRef} />
 			</div>
 			<div className="fixed bottom-0 my-3 w-[450px] md:w-full md:max-w-3xl bg-gray-200 rounded-4xl flex place-items-center">
 				<textarea 

@@ -25,6 +25,7 @@ export default function useFetch (url) {
 				const data = await response.json()
 				console.log(data)
 				setData(data)
+				setLoading(false)
 			} else {
 				console.log(response)
 				throw new Error("Failed to load user")

@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast'
 
 export default function Chat ({ chatId }) {
 	const [messages, setMessages] = useState([])
+	const [sending, setSending] = useState(false)
 	const url = import.meta.env.VITE_API + `chat/${chatId}/details/`
 	const {data, loading, error} = useFetch(url)
 	const messagesEndRef = useRef(null)
@@ -36,6 +37,7 @@ export default function Chat ({ chatId }) {
 		}
 		setMessages(prev => [...prev, formattedNewMsg])
 		setNewPrompt("")
+		setSending(true)
 
 		try {
 			const res = await sendMessage(newPrompt)
@@ -47,6 +49,8 @@ export default function Chat ({ chatId }) {
 			}
 		} catch (err) {
 			toast.error("Something went wrong: " + err)
+		} finally {
+			setSending(false)
 		}
 
 		console.log("updated: ", messages)
@@ -77,7 +81,11 @@ export default function Chat ({ chatId }) {
 				/>
 				<button 
 					onClick={handleSubmit}
-					className="bg-blue-500 p-2 m-2 rounded-full cursor-pointer hover:bg-blue-400 transition transition-delay">
+					disabled={sending}
+					className={`p-2 m-2 rounded-full cursor-pointer 
+					transition transition-delay ${ sending ? 'bg-gray-400 cursor-not-allowed'
+              		: 'bg-blue-500 hover:bg-blue-400'}`}
+              	>
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
 					  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
 					</svg>

@@ -1,7 +1,15 @@
-export default function Navbar ({ user }) {
+import { useState } from 'react'
+import useFetch from '../hooks/useFetch'
+
+export default function Navbar () {
+	const url = import.meta.env.VITE_API + 'auth/users/me/'
+	const { data: user, error, loading } = useFetch(url)
+
+	if (error) return <p>Error...</p>
 
 	return (
-		<div className="fixed top-0 left-0 right-0 md:ml-16 bg-white 
+		user && (
+			<div className="fixed top-0 left-0 right-0 md:ml-16 bg-white 
 			flex justify-between items-center border-b border-gray-300 
 			p-3 h-16">
 			{/*Sidbar Toggle*/}
@@ -18,5 +26,6 @@ export default function Navbar ({ user }) {
 				<div className="bg-gray-300 px-5 py-3 rounded-4xl mx-1 text-lg">{user.username.charAt(0).toUpperCase()}</div>
 			</div>
 		</div>
+		)
 	)
 }

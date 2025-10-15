@@ -114,7 +114,7 @@ export default function Sidebar () {
 									<li key={chat.id}
 										className="hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer flex justify-between place-items-center"
 									>
-										<Link to={`${chat.id}`}>
+										<Link to={`chat/${chat.id}`}>
 											<p>{firstMessage.length > 30? firstMessage.slice(0, 20) + "..." : firstMessage}</p>
 										</Link>
 										<button onClick={() => handleDelete(chat.id)} className="text-red-500 cursor-pointer">

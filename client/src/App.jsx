@@ -5,6 +5,7 @@ import RootLayout from './layout/RootLayout'
 import { Toaster } from 'react-hot-toast'
 import SignUp from './pages/SignUp'
 import Home from './pages/Home'
+import NewChat from './pages/NewChat'
 
 function App() {
 
@@ -13,9 +14,8 @@ function App() {
       <Route path='/' element={<RootLayout />}>
         <Route index element={<Login />} />
         <Route path='signup' element={<SignUp />} />
-        <Route path='chat' element={<Home />}>
-          <Route path=':chatId' element={<Home />} />
-        </Route>
+        <Route path='chat' element={<NewChat />} />
+        <Route path='chat/:chatId' element={<Home />} />
       </Route>
     )
   )

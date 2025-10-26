@@ -3,6 +3,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import ChatSerializer, MessageSerializer
 from .models import Chat, Message
+from django.http import FileResponse, HttpResponseBadRequest
+from django.conf import settings
+import os, uuid
+from .models import GeneratedDocument
+from .utils import generate_docx_from_template
 
 #Get chats of a user.
 @api_view(['GET'])
@@ -72,3 +77,47 @@ def send_message(request, chat_id):
 		}, status=201)
 
 	return Response(serializer.errors, status=400)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def generate_document(request):
+    """
+    POST payload:
+    {
+      "template_name": "rental_agreement",
+      "context": { ... },
+      "save": true
+    }
+    """
+    template_name = request.data.get("template_name")
+    context = request.data.get("context", {})
+    save_flag = request.data.get("save", False)
+
+    if not template_name:
+        return HttpResponseBadRequest("template_name is required")
+
+    # Path to predefined templates (store .docx here)
+    template_path = os.path.join(settings.BASE_DIR, "media", "templates", f"{template_name}.docx")
+    if not os.path.exists(template_path):
+        return Response({"error": "Template not found"}, status=404)
+
+    # Output file path
+    out_filename = f"{template_name}_{request.user.username}_{uuid.uuid4().hex[:8]}.docx"
+    out_dir = os.path.join(settings.MEDIA_ROOT, "generated_docs")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, out_filename)
+
+    # Generate the document
+    generate_docx_from_template(template_path, context, out_path)
+
+    # Save record (optional)
+    if save_flag:
+        GeneratedDocument.objects.create(
+            user=request.user,
+            template_name=template_name,
+            file=f"generated_docs/{out_filename}"
+        )
+
+    # Return file
+    return FileResponse(open(out_path, 'rb'), as_attachment=True, filename=out_filename)

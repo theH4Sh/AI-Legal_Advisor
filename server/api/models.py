@@ -27,3 +27,12 @@ class LegalDocument(models.Model):
 
 	def __str__(self):
 		return f"Document {self.title}"
+
+class GeneratedDocument(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    template_name = models.CharField(max_length=255)
+    file = models.FileField(upload_to="generated_docs/")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Document {self.template_name} - User {self.user}"

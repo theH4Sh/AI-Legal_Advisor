@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .serializers import ChatSerializer, MessageSerializer
+from .serializers import ChatSerializer, MessageSerializer, GeneratedDocumentSerializer
 from .models import Chat, Message
 from django.http import FileResponse, HttpResponseBadRequest
 from django.conf import settings
@@ -121,3 +121,11 @@ def generate_document(request):
 
     # Return file
     return FileResponse(open(out_path, 'rb'), as_attachment=True, filename=out_filename)
+
+#get generated docs
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_generated_docs(request):
+    docs = GeneratedDocument.objects.filter(user=request.user).order_by('-created_at')
+    serializer = GeneratedDocumentSerializer(docs, many=True, context={'request': request})
+    return Response(serializer.data)

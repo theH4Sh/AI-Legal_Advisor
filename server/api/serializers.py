@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Chat, Message
+from .models import Chat, Message, GeneratedDocument
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -21,3 +21,16 @@ class ChatSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Chat
 		fields = ['id', 'created_at', 'user', 'messages']
+
+class GeneratedDocumentSerializer(serializers.ModelSerializer):
+    download_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = GeneratedDocument
+        fields = ['id', 'template_name', 'file', 'download_url', 'created_at']
+
+    def get_download_url(self, obj):
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(obj.file.url)
+        return f"{settings.MEDIA_URL}{obj.file}"

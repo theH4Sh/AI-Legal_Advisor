@@ -12,3 +12,5 @@ db.sqlite3
 node_modules/
 build/
 dist/
+
+server/media/generated_docs/

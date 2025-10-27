@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import SignUp from './pages/SignUp'
 import Home from './pages/Home'
 import NewChat from './pages/NewChat'
+import GenerateDoc from './pages/GenerateDoc'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='signup' element={<SignUp />} />
         <Route path='chat' element={<NewChat />} />
         <Route path='chat/:chatId' element={<Home />} />
+        <Route path='generate' element={<GenerateDoc />} />
       </Route>
     )
   )

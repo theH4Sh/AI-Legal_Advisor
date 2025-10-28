@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useFetch from '../hooks/useFetch'
 
-export default function Navbar () {
+export default function Navbar ({ toggleSidebar }) {
 	const url = import.meta.env.VITE_API + 'auth/users/me/'
 	const { data: user, error, loading } = useFetch(url)
 
@@ -14,7 +14,7 @@ export default function Navbar () {
 			p-3 h-16">
 			{/*Sidbar Toggle*/}
 			<div className="flex items-center">
-				<button className="md:hidden my-5 cursor-pointer">
+				<button onClick={toggleSidebar} className="md:hidden my-5 cursor-pointer">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
 	  					<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
 					</svg>

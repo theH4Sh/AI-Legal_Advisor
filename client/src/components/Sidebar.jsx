@@ -3,15 +3,10 @@ import { useSelector } from 'react-redux'
 import useFetch from '../hooks/useFetch'
 import { Link } from 'react-router-dom'
 
-export default function Sidebar () {
+export default function Sidebar ({ isOpen, setIsOpen }) {
 	const token = useSelector(state => state.accessToken)
-
-	const [isOpen, setIsOpen] = useState(true)
-
 	const url = import.meta.env.VITE_API + 'chat/'
-
 	const { data, error, loading } = useFetch(url)
-
 	const [chats, setChats] = useState([])
 
 	useEffect(() => {

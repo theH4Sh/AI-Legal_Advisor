@@ -109,7 +109,7 @@ export default function Sidebar ({ isOpen, setIsOpen }) {
 				{/*Chats*/}
 				<div className="flex flex-col text-start my-5 mx-3 text-gray-500 text-sm">
 					<h3>Chats</h3>
-					<ul>
+					<ul className="overflow-y-auto max-h-[350px]">
 						{chats && chats.map(chat => {
 							const firstMessage = chat.messages.length > 0 ? chat.messages[0].content : "null"
 

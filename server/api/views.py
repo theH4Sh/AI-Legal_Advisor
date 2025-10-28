@@ -8,9 +8,11 @@ from django.conf import settings
 import os, uuid
 from .models import GeneratedDocument
 from .utils import generate_docx_from_template
+from .LLM_RESPONSE import get_llm_response, get_urdu_llm_response
 
 #Get chats of a user.
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_chat(request):
 	chats = Chat.objects.filter(user=request.user)
 	serializer = ChatSerializer(chats, many=True)
@@ -22,10 +24,17 @@ def get_chat(request):
 def create_chat(request):
 	chat = Chat.objects.create(user=request.user)
 	content = request.data.get("content")
+	language = request.data.get("language")
+
+	if language == "urdu":
+		response = get_urdu_llm_response(content)
+	else:
+		response = get_llm_response(content)
 
 	user_msg = Message.objects.create(chat=chat, sender="user", content=content)
 	#Fake bot response
-	bot_msg = Message.objects.create(chat=chat, sender="bot", content="Fuck You")
+	# bot_msg = Message.objects.create(chat=chat, sender="bot", content="Fuck You")
+	bot_msg = Message.objects.create(chat=chat, sender="bot", content=response)
 	serializer = ChatSerializer(chat)
 	return Response(serializer.data, status=201)
 
@@ -55,6 +64,8 @@ def send_message(request, chat_id):
 		return Response({"Error" : "Chat not found"}, status = 404)
 
 	content = request.data.get("content")
+	language = request.data.get("language")
+	#print(language)
 	if not content:
 		return Response({"error" : "Content cannot be empty"}, status=400)
 
@@ -64,12 +75,18 @@ def send_message(request, chat_id):
 		"content" : content
 	}
 
+	if language == "urdu":
+		response = get_urdu_llm_response(content)
+	else:
+		response = get_llm_response(content)
+
 	serializer = MessageSerializer(data=data)
 	if serializer.is_valid():
 		user_msg = serializer.save()
 
 		#Fake bot reply
-		bot_msg = Message.objects.create(chat=chat, sender="bot", content="Fuck You")
+		#bot_msg = Message.objects.create(chat=chat, sender="bot", content="Fuck You")
+		bot_msg = Message.objects.create(chat=chat, sender="bot", content=response)
 
 		return Response({
 			"user": MessageSerializer(user_msg).data,

@@ -9,7 +9,7 @@ export default function useSend (url) {
 	const [loading, setLoading] = useState(false)
 
 
-	const sendMessage = async (postData) => {
+	const sendMessage = async (postData, language) => {
 		setLoading(true)
 		try {
 			const response = await fetch(url, {
@@ -18,7 +18,7 @@ export default function useSend (url) {
 					"Authorization": `Bearer ${token}`,
 					"Content-Type": "application/json"
 				},
-				body: JSON.stringify({ content: postData })
+				body: JSON.stringify({ content: postData, language: language })
 			})
 
 			if (response.ok) {

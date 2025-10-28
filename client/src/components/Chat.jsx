@@ -4,12 +4,18 @@ import useSend from '../hooks/useSend'
 import { toast } from 'react-hot-toast'
 
 export default function Chat ({ chatId }) {
-	const [messages, setMessages] = useState([])
+	const [messages, setMessages] = useState([]) //this one sets the state for previous messages that are to be loaded into chat
+	const [isUrdu, setIsUrdu] = useState(false)
 	const [sending, setSending] = useState(false)
+	const [newPrompt, setNewPrompt] = useState("") // this one sets the prompt which is to be sent to the LLM
+
+	//for getting chat details
 	const url = import.meta.env.VITE_API + `chat/${chatId}/details/`
 	const {data, loading, error} = useFetch(url)
+	
 	const messagesEndRef = useRef(null)
 
+	//this useEffect is called each time the data changes...
 	useEffect(() => {
 		if (data) {
 			setMessages(data.messages)
@@ -25,7 +31,6 @@ export default function Chat ({ chatId }) {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
 	}, [messages])
 
-	const [newPrompt, setNewPrompt] = useState("")
 
 	const { sendMessage } = useSend(import.meta.env.VITE_API + `chat/${chatId}/message/`)
 
@@ -39,8 +44,10 @@ export default function Chat ({ chatId }) {
 		setNewPrompt("")
 		setSending(true)
 
+		const language = isUrdu ? "urdu": "english"
+
 		try {
-			const res = await sendMessage(newPrompt)
+			const res = await sendMessage(newPrompt, language)
 			if (res) {
 				console.log("response:", res.bot)
 				setMessages(prev => [...prev, res.bot])
@@ -71,7 +78,9 @@ export default function Chat ({ chatId }) {
 				}
 				<div ref={messagesEndRef} />
 			</div>
-			<div className="fixed bottom-0 my-3 w-[450px] md:w-full md:max-w-3xl bg-gray-200 rounded-4xl flex place-items-center">
+
+			{/*message bar*/}
+			<div className="fixed bottom-0 my-3 w-[350px] md:w-full md:max-w-3xl bg-gray-200 rounded-4xl flex place-items-center">
 				<textarea 
 					rows={1}
 					placeholder="Send a message"
@@ -79,6 +88,25 @@ export default function Chat ({ chatId }) {
 					onChange={(e) => setNewPrompt(e.target.value)}
 					className="flex-1 resize-none focus:outline-none w-full h-full overflow-auto p-3" 
 				/>
+
+				{/* Toggle */}
+			     <div className="flex items-center gap-2 p-1 border-l border-gray-800">
+			        <span className={`text-sm ${isUrdu ? "text-gray-400" : "text-black"}`}>Eng</span>
+			        <button
+			          onClick={() => setIsUrdu(!isUrdu)}
+			          className={`w-8 h-5 md:w-12 md:h-6 rounded-full transition-colors duration-300 ${
+			            isUrdu ? "bg-blue-500" : "bg-gray-300"
+			          } relative`}
+			        >
+			          <div
+			            className={`w-4 h-4 md:w-5 md:h-5 bg-white rounded-full absolute top-0.5 transition-transform duration-300 ${
+			              isUrdu ? "translate-x-4 md:translate-x-6" : "translate-x-0.5"
+			            }`}
+			          ></div>
+			        </button>
+			        <span className={`text-sm ${isUrdu ? "text-black" : "text-gray-400"}`}>Urdu</span>
+			     </div>
+
 				<button 
 					onClick={handleSubmit}
 					disabled={sending}

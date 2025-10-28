@@ -8,6 +8,7 @@ export default function NewChat() {
 	const [newPrompt, setNewPrompt] = useState("")
 	const [messages, setMessages] = useState([])
 	const [loading, setLoading] = useState(null)
+	const [isUrdu, setIsUrdu] = useState(false)
 
 	const navigate = useNavigate()
 
@@ -24,8 +25,10 @@ export default function NewChat() {
 		setNewPrompt("")
 		setSending(true)
 
+		const language = isUrdu ? "urdu": "english"
+
 		try {
-			const res = await sendMessage(newPrompt)
+			const res = await sendMessage(newPrompt, language)
 			if (res) {
 				console.log("response:", res.id)
 				navigate(`/chat/${res.id}`)
@@ -55,7 +58,8 @@ export default function NewChat() {
 				}
 			</div>			
 
-			<div className="fixed bottom-0 my-3 w-[450px] md:w-full md:max-w-3xl bg-gray-200 rounded-4xl flex place-items-center">
+			{/*message bar*/}
+			<div className="fixed bottom-0 my-3 w-[350px] md:w-full md:max-w-3xl bg-gray-200 rounded-4xl flex place-items-center">
 				<textarea 
 					rows={1}
 					placeholder="Send a message"
@@ -63,6 +67,24 @@ export default function NewChat() {
 					onChange={(e) => setNewPrompt(e.target.value)}
 					className="flex-1 resize-none focus:outline-none w-full h-full overflow-auto p-3" 
 				/>
+
+				{/* Toggle */}
+			     <div className="flex items-center gap-2 p-1 border-l border-gray-800">
+			        <span className={`text-sm ${isUrdu ? "text-gray-400" : "text-black"}`}>Eng</span>
+			        <button
+			          onClick={() => setIsUrdu(!isUrdu)}
+			          className={`w-8 h-5 md:w-12 md:h-6 rounded-full transition-colors duration-300 ${
+			            isUrdu ? "bg-blue-500" : "bg-gray-300"
+			          } relative`}
+			        >
+			          <div
+			            className={`w-4 h-4 md:w-5 md:h-5 bg-white rounded-full absolute top-0.5 transition-transform duration-300 ${
+			              isUrdu ? "translate-x-4 md:translate-x-6" : "translate-x-0.5"
+			            }`}
+			          ></div>
+			        </button>
+			        <span className={`text-sm ${isUrdu ? "text-black" : "text-gray-400"}`}>Urdu</span>
+			     </div>
 				<button 
 					onClick={handleSubmit}
 					disabled={sending}

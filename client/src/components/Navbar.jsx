@@ -19,7 +19,7 @@ export default function Navbar ({ toggleSidebar }) {
 	  					<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
 					</svg>
 				</button>
-				<div className="font-semibold text-blue-600 px-3">AI Legal Advisor</div>
+				<div className="font-semibold text-gray-800 px-3">AI Legal Advisor</div>
 			</div>
 			<div className="flex justify-center items-center">
 				<div className="text-sm">{user.username}</div>

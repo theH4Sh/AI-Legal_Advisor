@@ -60,7 +60,7 @@ export default function Sidebar ({ isOpen, setIsOpen }) {
 
 	return (
 		<>
-			<div className={`fixed hidden md:block w-16 h-screen bg-gray-400 flex-col justify-center place-items-center`}>
+			<div className={`fixed hidden md:block w-16 h-screen bg-gray-800 text-white flex-col justify-center place-items-center`}>
 				{/*Sidbar Toggle*/}
 				<button onClick={() => setIsOpen(!isOpen)} className="my-5 cursor-pointer">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">

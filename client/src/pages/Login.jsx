@@ -71,7 +71,7 @@ export default function Login() {
               id="username"
               type="text"
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e93c3d]"
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
               placeholder="username or email"
               onChange={handleChange}
             />
@@ -84,21 +84,21 @@ export default function Login() {
               id="password"
               type="password"
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e93c3d]"
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-800]"
               placeholder="••••••••"
               onChange={handleChange}
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-[#e93c3d] hover:bg-[#d13435] cursor-pointer text-white font-semibold rounded-lg transition duration-200"
+            className="w-full py-2 px-4 bg-gray-800 hover:bg-gray-700 cursor-pointer text-white font-semibold rounded-lg transition duration-200"
           >
             Log In
           </button>
         </form>
         <p className="text-center text-sm text-gray-500">
           Don't have an account?{" "}
-          <Link to='/signup' className="text-[#e93c3d] hover:underline">
+          <Link to='/signup' className="text-blue-700 hover:underline">
             Sign up
           </Link>
         </p>

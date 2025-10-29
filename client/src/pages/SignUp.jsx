@@ -61,7 +61,7 @@ export default function SignUp() {
               id="username"
               type="text"
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e93c3d]"
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
               placeholder="User_123"
               onChange={handleChange}
             />
@@ -74,7 +74,7 @@ export default function SignUp() {
               id="email"
               type="email"
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e93c3d]"
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
               placeholder="you@example.com"
               onChange={handleChange}
             />
@@ -87,22 +87,22 @@ export default function SignUp() {
               id="password"
               type="password"
               required
-              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e93c3d]"
+              className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
               placeholder="••••••••"
               onChange={handleChange}
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 text-white font-semibold 
-            rounded-lg transition duration-200 bg-[#e93c3d] hover:bg-[#d13435]"
+            className="w-full py-2 px-4 text-white font-semibold cursor-pointer
+            rounded-lg transition duration-200 bg-gray-800 hover:bg-gray-700"
           >
             Sign Up
           </button>
         </form>
         <p className="text-center text-sm text-gray-500">
           Already have an account?{" "}
-          <Link to="/login" className="text-[#e93c3d] hover:underline font-medium">
+          <Link to="/" className="text-blue-700 hover:underline font-medium">
             Log in
           </Link>
         </p>

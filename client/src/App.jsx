@@ -19,8 +19,8 @@ function App() {
         <Route index element={auth ? <Navigate to='/chat' /> : <Login />} />
         <Route path='signup' element={auth ? <Navigate to='/chat' /> : <SignUp />} />
         <Route path='chat' element={auth ? <NewChat /> : <Navigate to="/" />} />
-        <Route path='chat/:chatId' element={auth ? <NewChat /> : <Navigate to="/" />} />
-        <Route path='generate' element={auth ? <NewChat /> : <Navigate to="/" />} />
+        <Route path='chat/:chatId' element={auth ? <Home /> : <Navigate to="/" />} />
+        <Route path='generate' element={auth ? <GenerateDoc /> : <Navigate to="/" />} />
       </Route>
     )
   )

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import useFetch from '../hooks/useFetch'
 import useSend from '../hooks/useSend'
 import { toast } from 'react-hot-toast'
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function Chat ({ chatId }) {
 	const [messages, setMessages] = useState([]) //this one sets the state for previous messages that are to be loaded into chat
@@ -70,8 +72,10 @@ export default function Chat ({ chatId }) {
 				{loading && <p className="text-gray-400">Loading...</p>}
 				{messages.length > 0 ? messages.map(msg => (
 					<div key={msg.id} className={`flex my-2 ${ msg.sender == 'user' ? 'justify-end' : 'justify-start'}`}>
-						<div className={` text-start rounded-2xl px-3 py-2 max-w-[70%] ${ msg.sender == 'user' ? 'bg-blue-400 rounded-br-none' : 'bg-slate-200 rounded-bl-none'}`}>
-							{msg.content}
+						<div className={`prose text-start rounded-2xl px-3 py-2 my- max-w-[70%]  ${ msg.sender == 'user' ? 'bg-blue-400 rounded-br-none' : 'bg-slate-200 rounded-bl-none text-sm md:text-md'}`}>
+							<ReactMarkdown remarkPlugins={[remarkGfm]}>
+								{msg.content}
+							</ReactMarkdown>
 						</div>
 					</div>
 					)) : (<div>No chats found</div>)

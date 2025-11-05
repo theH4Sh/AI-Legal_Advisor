@@ -15,4 +15,4 @@ dist/
 
 server/media/generated_docs/
 server/vector_storage/
-server/legal_docs/
+server/media/legal_docs/

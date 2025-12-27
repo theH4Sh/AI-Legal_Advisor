@@ -1,0 +1,18 @@
+# .gitignore
+
+venv/
+__pycache__/
+*.pyc
+*.sqlite3
+*.db
+.env
+*.log
+*.sh
+db.sqlite3
+node_modules/
+build/
+dist/
+
+server/media/generated_docs/
+server/vector_storage/
+server/media/legal_docs/

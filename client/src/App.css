@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sidebar-items {
+  @apply cursor-pointer p-2 flex justify-start place-items-center space-x-3 text-sm;
+}
+
+.prose {
+  @apply max-w-none text-gray-800 leading-relaxed;
+}
+
+.prose h2 {
+  @apply text-xl font-semibold mt-6 mb-3;
+}
+
+.prose table {
+  @apply border border-gray-300 w-full my-4;
+}
+
+.prose table th, .prose table td {
+  @apply border border-gray-300 p-0.5;
+}
